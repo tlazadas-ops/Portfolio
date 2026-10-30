@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthony Lazadas | Portfolio</title>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --card-bg: #141414;
+            --card-hover: #1a1a1a;
+            --coca-red: #E50014;
+            --coca-green: #00A355;
+            --text-light: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-glow: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(10, 10, 10, 0.8);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+        }
+
+        /* ==========================================================================
+           2. GLOBAL RESETS & BASE STYLES
+           ========================================================================== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar { width: 8px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: var(--radius-sm); }
+        ::-webkit-scrollbar-thumb:hover { background: #333; }
+
+        /* ==========================================================================
+           3. GLASSMORPHISM NAVIGATION
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-light);
+            background: none;
+            border: none;
+            cursor: pointer;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo span {
+            color: var(--coca-red);
+        }
+
+        .nav-pills-container {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 2px;
+            scrollbar-width: none;
+        }
+
+        .nav-pills-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 8px 18px;
+            border-radius: var(--radius-full);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-pill:hover {
+            color: var(--text-light);
+            border-color: var(--coca-green);
+        }
+
+        .nav-pill.active {
+            color: var(--text-light);
+            background: rgba(0, 163, 85, 0.2);
+            border-color: var(--coca-green);
+            box-shadow: 0 0 15px rgba(0, 163, 85, 0.4);
+            font-weight: 700;
+        }
+
+        .nav-pill.contact-pill.active {
+            background: linear-gradient(135deg, var(--coca-red), #90000d);
+            border-color: var(--coca-red);
+            box-shadow: 0 0 20px rgba(229, 0, 20, 0.6);
+        }
+
+        /* ==========================================================================
+           4. HERO HEADER
+           ========================================================================== */
+        .hero-header {
+            padding-top: 130px;
+            padding-bottom: 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-glow);
+            background: radial-gradient(circle at top, rgba(229, 0, 20, 0.08) 0%, rgba(0, 163, 85, 0.03) 50%, transparent 100%);
+            position: relative;
+        }
+
+        .profile-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--bg-dark);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            transition: var(--transition-smooth);
+        }
+
+        .profile-wrapper::after {
+            content: '';
+            position: absolute;
+            top: -6px; left: -6px; right: -6px; bottom: -6px;
+            background: linear-gradient(45deg, var(--coca-red), var(--coca-green));
+            border-radius: 50%;
+            z-index: 1;
+            filter: blur(15px);
+            opacity: 0.6;
+            animation: pulse-glow 3s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { opacity: 0.4; transform: scale(0.96); }
+            100% { opacity: 0.8; transform: scale(1.04); }
+        }
+
+        .hero-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .hero-tagline {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--coca-green);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-tagline::before,
+        .hero-tagline::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background-color: var(--coca-green);
+        }
+
+        /* ==========================================================================
+           5. MAIN CONTAINER & SECTION HEADINGS
+           ========================================================================== */
+        .main-container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 24px;
+            flex-grow: 1;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 35px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50px;
+            height: 5px;
+            background: linear-gradient(to right, var(--coca-red), var(--coca-green));
+            border-radius: var(--radius-full);
+        }
+
+        /* ==========================================================================
+           6. CONTENT CARDS & GRIDS
+           ========================================================================== */
+        /* Content Box / Card Base */
+        .content-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            transition: var(--transition-smooth);
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Timeline / Achievements */
+        .timeline {
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            margin-left: 10px;
+            padding-left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .timeline-item {
+            position: relative;
+            background: var(--card-bg);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-glow);
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -39px;
+            top: 28px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--bg-dark);
+            border: 3px solid var(--coca-green);
+            transition: var(--transition-smooth);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 163, 85, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 163, 85, 0.1);
+        }
+
+        .timeline-item.featured:hover {
+            border-color: rgba(229, 0, 20, 0.4);
+            box-shadow: 0 10px 25px rgba(229, 0, 20, 0.1);
+        }
+
+        .timeline-item.featured::before {
+            border-color: var(--coca-red);
+        }
+
+        .timeline-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .timeline-category {
+            color: var(--coca-green);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .timeline-item.featured .timeline-category {
+            color: var(--coca-red);
+        }
+
+        /* Experience Items */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .experience-card {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--coca-green);
+            border-top: 1px solid var(--border-glow);
+            border-right: 1px solid var(--border-glow);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 28px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            transition: var(--transition-smooth);
+        }
+
+        .experience-card:hover {
+            border-left-color: var(--coca-red);
+            background-color: var(--card-hover);
+            transform: translateX(8px);
+        }
+
+        .experience-role {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .experience-company {
+            color: var(--coca-green);
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Skill Pills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .skill-item {
+            background: linear-gradient(90deg, #181818, var(--card-bg));
+            padding: 18px 20px;
+            border-radius: var(--radius-sm);
+            border-left: 4px solid var(--coca-red);
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+
+        .skill-item:hover {
+            transform: translateY(-3px);
+            border-left-color: var(--coca-green);
+        }
+
+        /* GitHub Project Cards */
+        .project-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-smooth);
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 163, 85, 0.5);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .project-img-wrapper {
+            height: 200px;
+            overflow: hidden;
+            border-bottom: 3px solid var(--coca-red);
+            position: relative;
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .project-content {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .project-title {
+            color: var(--coca-green);
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+        }
+
+        .project-card:hover .project-title {
+            color: var(--coca-red);
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .tech-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 163, 85, 0.3);
+            color: var(--text-light);
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+        }
+
+        /* Gallery Cards - FIXED FOR FULL IMAGE DISPLAY */
+        .gallery-card {
+            background-color: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border-glow);
+            position: relative;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(229, 0, 20, 0.4);
+        }
+
+        .gallery-img-wrapper {
+            width: 100%;
+            height: 350px;
+            background-color: #080808;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Kitang-kita ang buong larawan nang walang bawas sa laptop at phone */
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-card:hover .gallery-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 20px 15px 12px;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .gallery-card:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* Hobbies Cards */
+        .hobby-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-glow);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .hobby-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 3px;
+            background: var(--coca-green);
+            transition: var(--transition-smooth);
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(229, 0, 20, 0.3);
+        }
+
+        .hobby-card:hover::before {
+            background: var(--coca-red);
+        }
+
+        .hobby-icon {
+            font-size: 1.8rem;
+            color: var(--coca-green);
+            margin-bottom: 15px;
+            transition: var(--transition-smooth);
+        }
+
+        .hobby-card:hover .hobby-icon {
+            color: var(--coca-red);
+        }
+
+        .hobby-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .hobby-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           7. CONTACT BOX & SOCIAL BUTTONS
+           ========================================================================== */
+        .contact-box {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(0, 163, 85, 0.3);
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGwE7NqdHyzGRyVV71wOy2aoKScf-ew_ItoU8R5VBX37skvHTnNiRE_WL2&s=10');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .contact-overlay {
+            background: radial-gradient(circle, rgba(20, 20, 20, 0.85) 0%, rgba(10, 10, 10, 0.95) 100%);
+            padding: 50px 24px;
+        }
+
+        .contact-subtitle {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1rem;
+        }
+
+        .social-buttons-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 500;
+            backdrop-filter: blur(8px);
+            transition: var(--transition-smooth);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--coca-green);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .social-btn.email-btn:hover { border-color: var(--coca-green); }
+        .social-btn.github-btn:hover { border-color: #ffffff; }
+        .social-btn.facebook-btn:hover { border-color: #1877F2; color: #1877F2; }
+        .social-btn.instagram-btn:hover { border-color: #E4405F; color: #E4405F; }
+        .social-btn.tiktok-btn:hover { border-color: var(--coca-red); color: var(--coca-red); }
+
+        /* ==========================================================================
+           8. FOOTER
+           ========================================================================== */
+        .footer {
+            border-top: 1px solid var(--border-glow);
+            padding: 25px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            background-color: var(--card-bg);
+            margin-top: auto;
+        }
+
+        /* ==========================================================================
+           9. RESPONSIVE BREAKPOINTS
+           ========================================================================== */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .nav-pills-container {
+                width: 100%;
+                justify-content: flex-start;
+            }
+
+            .hero-header {
+                padding-top: 150px;
+            }
+
+            .hero-name {
+                font-size: 2.1rem;
+            }
+
+            .hero-tagline {
+                font-size: 0.8rem;
+            }
+
+            .main-container {
+                padding: 30px 16px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .timeline {
+                margin-left: 0;
+                padding-left: 20px;
+            }
+
+            .timeline-item::before {
+                left: -27px;
+            }
+
+            .social-buttons-grid {
+                flex-direction: column;
+            }
+
+            .social-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .gallery-img-wrapper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <button class="nav-logo" onclick="switchTab('about')">AL<span>.</span></button>
+        <div class="nav-pills-container">
+            <button class="nav-pill active" data-tab="about" onclick="switchTab('about')">About Me</button>
+            <button class="nav-pill" data-tab="achievements" onclick="switchTab('achievements')">Achievements</button>
+            <button class="nav-pill" data-tab="experience" onclick="switchTab('experience')">Work Experience</button>
+            <button class="nav-pill" data-tab="projects" onclick="switchTab('projects')">GitHub Projects</button>
+            <button class="nav-pill" data-tab="gallery" onclick="switchTab('gallery')">Gallery</button>
+            <button class="nav-pill" data-tab="hobbies" onclick="switchTab('hobbies')">Hobbies</button>
+            <button class="nav-pill contact-pill" data-tab="contact" onclick="switchTab('contact')">Contact Me</button>
+        </div>
+    </nav>
+
+    <!-- Header / Hero Profile -->
+    <header class="hero-header">
+        <div class="profile-wrapper">
+            <img src="Anthony.jpg" alt="Anthony Lazadas" class="profile-pic" onerror="this.src='https://placehold.co/200x200/141414/E50014?text=AL'">
+        </div>
+        <h1 class="hero-name">Anthony A. Lazadas</h1>
+        <div class="hero-tagline">BSIS Student | DFCAMCLP</div>
+    </header>
+
+    <!-- Main Content Pages -->
+    <main class="main-container">
+
+        <!-- About Me -->
+        <section id="about" class="tab-content active">
+            <h2 class="section-title">About Me</h2>
+            <div class="content-box">
+                <p class="about-text">
+                    I am currently pursuing a Bachelor of Science in Information Systems at Dr. Filemon C. Aguilar Memorial College of Las Piñas. I am passionate about learning and improving my skills in frontend development, particularly in creating responsive, user-friendly, and visually appealing websites. I am committed to continuously learning new technologies and gaining practical experience to improve my coding skills. My goal is to become a professional Frontend Developer in the future and turn my passion for web development into a successful career.
+                </p>
+            </div>
+        </section>
+
+        <!-- Achievements -->
+        <section id="achievements" class="tab-content">
+            <h2 class="section-title">School & Esports Achievements</h2>
+            <div class="timeline">
+                <div class="timeline-item featured">
+                    <h3>Multiple CODM Tournament Champion</h3>
+                    <span class="timeline-category">Esports & Competitive Gaming</span>
+                </div>
+                <div class="timeline-item">
+                    <h3>1st year - Passing Majors</h3>
+                    <span class="timeline-category">1st Year College</span>
+                </div>
+                <div class="timeline-item">
+                    <h3>Grade 12 - With Honors</h3>
+                    <span class="timeline-category">Senior High School</span>
+                </div>
+                <div class="timeline-item">
+                    <h3>Grade 11 - With Honors</h3>
+                    <span class="timeline-category">Senior High School</span>
+                </div>
+                <div class="timeline-item">
+                    <h3>Grade 10 - With Honors</h3>
+                    <span class="timeline-category">Junior High School</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Work Experience -->
+        <section id="experience" class="tab-content">
+            <h2 class="section-title">Work Experience</h2>
+            <div class="experience-list">
+                <div class="experience-card">
+                    <div class="experience-role">Brand Ambassador</div>
+                    <div class="experience-company">Macarelle Mega Sardines</div>
+                    <p class="about-text">My first job involved promoting new products from Macarelle Mega Sardines by introducing them to customers and offering free product samples so they could try and experience the taste.</p>
+                </div>
+                <div class="experience-card">
+                    <div class="experience-role">Epson Workers</div>
+                    <div class="experience-company">AAI Worldwide Logistics Corp</div>
+                    <p class="about-text">My second job was at AAI Worldwide Logistics, where I was responsible for placing stickers and labels on Epson products before they were delivered to customers.</p>
+                </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <h3 style="margin-top: 40px; font-size: 1.5rem;">Soft Skills</h3>
+            <div class="skills-grid">
+                <div class="skill-item">Adaptability & Fast Learner</div>
+                <div class="skill-item">Time Management</div>
+                <div class="skill-item">Creativity & Problem Solving</div>
+                <div class="skill-item">Critical Teamwork</div>
+            </div>
+        </section>
+
+        <!-- GitHub Projects -->
+        <section id="projects" class="tab-content">
+            <h2 class="section-title">GitHub Projects</h2>
+            <div class="grid-2">
+                
+                <!-- Project 1 -->
+                <a href="https://tlazadas-ops.github.io/Product-Landing-Page/" target="_blank" class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="page.jpg" alt="Superteam Clothing Preview" onerror="this.src='https://placehold.co/600x400/141414/00A355?text=Superteam+Clothing'">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            <i class="fa-brands fa-github"></i> Superteam Clothing
+                        </h3>
+                        <p class="project-desc">A frontend project focused on developing an online clothing shop with a clean, user-friendly interface, attractive product displays, and a smooth shopping experience.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 2 -->
+                <a href="https://github.com/tlazadas-ops" target="_blank" class="project-card">
+                    <div class="project-img-wrapper">
+                        <img src="av.jpeg" alt="Project Placeholder">
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            <i class="fa-brands fa-github"></i> Upcoming Project
+                        </h3>
+                        <p class="project-desc">Wait nalang sa pagawa ni ms mikay.</p>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML / CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Gallery Tab -->
+        <section id="gallery" class="tab-content">
+            <h2 class="section-title">Gallery & Photos</h2>
+            <div class="grid-3">
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton1.jpeg" alt="Photo 1">
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton2.jpeg" alt="Photo 2">
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton3.jpeg" alt="Photo 3">
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton4.jpeg" alt="Photo 4">
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton5.jpeg" alt="Photo 5">
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton6.jpeg" alt="Photo 6">
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton7.jpeg" alt="Photo 7">
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton8.jpeg" alt="Photo 8">
+                    </div>
+                </div>
+                <div class="gallery-card">
+                    <div class="gallery-img-wrapper">
+                        <img src="ton9.jpeg" alt="Photo 9">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hobbies Tab -->
+        <section id="hobbies" class="tab-content">
+            <h2 class="section-title">Hobbies & Interests</h2>
+            <div class="grid-3">
+                <div class="hobby-card">
+                    <div class="hobby-icon"><i class="fa-solid fa-code"></i></div>
+                    <h3>Front-End Development</h3>
+                    <p>Learning and mastering HTML, CSS, and JavaScript. Practicing coding skills by building web applications and exploring new ideas.</p>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon"><i class="fa-solid fa-palette"></i></div>
+                    <h3>Esports Graphic Design</h3>
+                    <p>Creating professional team branding for esports teams in the gaming community, including logos, jerseys, and promotional posters.</p>
+                </div>
+                <div class="hobby-card">
+                    <div class="hobby-icon"><i class="fa-solid fa-gamepad"></i></div>
+                    <h3>Gaming & Security</h3>
+                    <p>Playing competitive games like Call of Duty: Mobile, while exploring game security, anti-cheat testing, and vulnerability identification.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Me Tab -->
+        <section id="contact" class="tab-content">
+            <div class="contact-box">
+                <div class="contact-overlay">
+                    <h2 class="section-title" style="margin-bottom: 10px;">Let's Connect</h2>
+                    <p class="contact-subtitle">Feel free to reach out for project collaborations, inquiries, or social connections!</p>
+                    
+                    <div class="social-buttons-grid">
+                        <a href="mailto:tlazadas@gmail.com" class="social-btn email-btn">
+                            <i class="fa-solid fa-envelope" style="color: var(--coca-green);"></i> tlazadas@gmail.com
+                        </a>
+                        <a href="https://github.com/tlazadas-ops" target="_blank" class="social-btn github-btn">
+                            <i class="fa-brands fa-github"></i> tlazadas-ops
+                        </a>
+                        <a href="https://www.facebook.com/share/1DwRzqrg8u/" target="_blank" class="social-btn facebook-btn">
+                            <i class="fa-brands fa-facebook"></i> Anthony Lazadas
+                        </a>
+                        <a href="https://www.instagram.com/yur_thny1?dlrf=MXVoZWw3MzV2MmY3eg==" target="_blank" class="social-btn instagram-btn">
+                            <i class="fa-brands fa-instagram"></i> yur_thny1
+                        </a>
+                        <a href="https://www.tiktok.com/@anthonysekago2433?_r=1&_t=ZS-9AxeXIIawXk" target="_blank" class="social-btn tiktok-btn">
+                            <i class="fa-brands fa-tiktok"></i> KIE
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Anthony Lazadas. FrontEnd Dev passion.</p>
+    </footer>
+
+    <!-- Instant SPA Navigation -->
+    <script>
+        function switchTab(tabId) {
+            // Hide all tabs
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Deactivate all nav pills
+            const navPills = document.querySelectorAll('.nav-pill');
+            navPills.forEach(pill => pill.classList.remove('active'));
+
+            // Activate target section
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Activate target nav pill button
+            const activePill = document.querySelector(`[data-tab="${tabId}"]`);
+            if (activePill) {
+                activePill.classList.add('active');
+            }
+
+            // Scroll page back to top instantly
+            window.scrollTo({ top: 0, behavior: 'instant' });
+
+            // Update URL hash without scroll jumps
+            if (history.replaceState) {
+                history.replaceState(null, null, '#' + tabId);
+            }
+        }
+
+        // Initialize state on DOM load
+        window.addEventListener('DOMContentLoaded', () => {
+            const initialTab = window.location.hash.replace('#', '') || 'about';
+            if (document.getElementById(initialTab)) {
+                switchTab(initialTab);
+            } else {
+                switchTab('about');
+            }
+        });
+    </script>
+
+</body>
+</html>
